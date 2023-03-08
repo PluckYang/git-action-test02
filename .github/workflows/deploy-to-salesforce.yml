@@ -2,7 +2,7 @@ name: salesforce ci
 on: 
   pull_request:
     branches:
-      - main
+      - dev01
 
 jobs:
   deploy_to_salesforce:
