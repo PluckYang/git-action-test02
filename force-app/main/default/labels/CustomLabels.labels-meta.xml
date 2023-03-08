@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>test01</fullName>
+        <language>ja</language>
+        <protected>true</protected>
+        <shortDescription>テスト用</shortDescription>
+        <value>20230308テスト01</value>
+    </labels>
+</CustomLabels>
