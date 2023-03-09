@@ -1,0 +1,36 @@
+name: salesforce ci
+on: 
+  pull_request:
+    branches:
+      - dev01
+
+jobs:
+  deploy_to_salesforce:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      # - name: Make temporary directory
+      #   run: |
+      #   mkdir ./temp
+
+      # Install Salesforce CLI
+      - name: Install Salesforce CLI
+        run: |
+          wget https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz
+          mkdir ./temp/sfdx-cli
+          tar xJf sfdx-linux-x64.tar.xz -C ./temp/sfdx-cli --strip-components 1
+          echo "./temp/sfdx-cli/bin" >> $GITHUB_PATH
+      - name: Display sfdx version
+        run: sfdx version
+
+      # Save into private-key
+      # - name: Save into private-key
+      #   run: echo -n ${{ secrets.PRIVATE_KEY_BASE64ED }} | base64 -d > ./temp/server.key
+
+      # Authenticate to access the salesforce
+      - name: Authenticate to access the salesforce
+        run: sfdx force:auth:jwt:grant --instance-url=https://pluck3-dev-ed.develop.my.salesforce.com/ --jwt-key-file temp/server.key --username ${{ secrets.ORG_USER }} --client-id ${{ secrets.CLIENT_ID }}
+      - name: check deploy metadata to salesforce 
+        run: sfdx force:source:deploy -c --manifest manifest/pkdiff.xml --targetusername ${{ secrets.ORG_USER }}
