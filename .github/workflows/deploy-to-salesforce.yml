@@ -33,4 +33,4 @@ jobs:
       - name: Authenticate to access the salesforce
         run: sfdx force:auth:jwt:grant --instance-url=https://pluck3-dev-ed.develop.my.salesforce.com/ --jwt-key-file temp/server.key --username ${{ secrets.ORG_USER }} --client-id ${{ secrets.CLIENT_ID }}
       - name: check deploy metadata to salesforce 
-        run: sfdx force:source:deploy -c --manifest manifest/pkdiff.xml --username deploy_by_git_action
+        run: sfdx force:source:deploy -c --manifest manifest/pkdiff.xml --username deployBy@GitAction.com
